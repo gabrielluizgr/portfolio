@@ -1,0 +1,176 @@
+/* Definição de variáveis globais para fácil manutenção */
+:root {
+  --cor-principal: #8a00c4;
+  --cor-hover: #5a189a;
+  --cor-gradiente-1: #000000;
+  --cor-gradiente-2: #10002b;
+  --cor-gradiente-3: #3c096c;
+  --cor-gradiente-4: #5a189a;
+  --cor-texto: #ffffff;
+  --fonte-principal: 'Onest', sans-serif; /* Fallback mais adequado */
+}
+
+html {
+  margin:0;
+  padding:0;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow-x: hidden; /* Previne overflow horizontal */
+  
+  /* Animação do gradiente aplicada diretamente no body */
+  background: linear-gradient(-45deg, var(--cor-gradiente-1), var(--cor-gradiente-2), var(--cor-gradiente-3), var(--cor-gradiente-4));
+  background-size: 400% 400%;
+  animation: gradient 12s ease infinite;
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.topo {
+  display: flex;
+  align-items: center;
+  padding: 20px 40px;
+  width: 100%;
+  z-index: 5;
+  box-sizing: border-box; /* Boa prática */
+  position:relative;
+} 
+
+.js-glitch {
+  font-family: var(--fonte-principal);
+  font-size: 2rem;
+  color: var(--cor-texto);
+  letter-spacing: 2px;
+  font-weight: 700;
+  transition: transform 0.08s linear, text-shadow 0.08s linear, font-family 0.1s linear;
+  margin: 0;
+}
+
+.js-glitch.glitching {
+  transform: translateX(-2px) skewX(-2deg);
+  text-shadow: 2px 0 #ff3b3b, -2px 0 #00e6f6;
+}
+
+.menu {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* O posicionamento absoluto foi removido */
+.menu ul {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Seletores ajustados de 'button' para 'a' */
+.menu li a {
+  background: none;
+  border: none;
+  color: var(--cor-texto);
+  font-size: 1rem;
+  cursor: pointer;
+  font-family: var(--fonte-principal);
+  position: relative;
+  transition: color 0.2s ease;
+  text-decoration: none; /* Remove sublinhado padrão dos links */
+  padding-bottom: 4px; /* Espaço para a linha inferior */
+}
+
+.menu li a:hover {
+  color: var(--cor-hover);
+}
+
+.menu li a.active {
+  color: var(--cor-principal);
+  font-weight: 700;
+}
+
+.menu li a.active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--cor-principal);
+  border-radius: 2px;
+}
+
+main#conteudo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px; /* Adiciona um respiro */
+}
+
+main#conteudo section {
+  display: none;
+}
+
+main#conteudo section.active {
+  display: block;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+#home {
+  color: var(--cor-texto);
+  font-family: var(--fonte-principal);
+}
+
+#home h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+#home p {
+  font-size: 1.2rem;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+  max-width: 600px; /* Melhora a legibilidade em telas largas */
+}
+
+/* Media Query para Responsividade */
+@media (max-width: 768px) {
+  .topo {
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .menu ul {
+    gap: 20px;
+    flex-wrap: wrap; /* Permite que o menu quebre a linha se não couber */
+    justify-content: center;
+  }
+}

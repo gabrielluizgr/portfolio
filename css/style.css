@@ -1,66 +1,59 @@
-/* Definição de variáveis globais para fácil manutenção */
+/* 🎨 VARIÁVEIS */
 :root {
-  --cor-principal: #8a00c4;
-  --cor-hover: #5a189a;
-  --cor-gradiente-1: #000000;
-  --cor-gradiente-2: #10002b;
-  --cor-gradiente-3: #3c096c;
-  --cor-gradiente-4: #5a189a;
+  --cor-principal: #000000;
+  --cor-hover: #7e7e7e;
   --cor-texto: #ffffff;
-  --fonte-principal: 'Onest', sans-serif; /* Fallback mais adequado */
+  --fonte-principal: 'Onest', sans-serif;
+
+  --sombra-texto: 2px 2px 4px #80808088;
+  --radius: 6px;
+  --transicao: 0.3s ease;
+}
+
+/* 🔧 RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html {
-  margin:0;
-  padding:0;
+  scroll-behavior: smooth;
+}
+
+html, body {
   height: 100%;
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  position: relative;
-  overflow-x: hidden; /* Previne overflow horizontal */
-  
-  /* Animação do gradiente aplicada diretamente no body */
-  background: linear-gradient(-45deg, var(--cor-gradiente-1), var(--cor-gradiente-2), var(--cor-gradiente-3), var(--cor-gradiente-4));
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: var(--fonte-principal);
+  color: var(--cor-texto);
+  background: var(--cor-principal);
   background-size: 400% 400%;
-  animation: gradient 12s ease infinite;
 }
 
-@keyframes gradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
+/* 🧭 TOPO E MENU */
 .topo {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 20px 40px;
+  z-index: 100;
+  position: relative;
   width: 100%;
-  z-index: 5;
-  box-sizing: border-box; /* Boa prática */
-  position:relative;
-} 
-
-.js-glitch {
-  font-family: var(--fonte-principal);
-  font-size: 2rem;
-  color: var(--cor-texto);
-  letter-spacing: 2px;
-  font-weight: 700;
-  transition: transform 0.08s linear, text-shadow 0.08s linear, font-family 0.1s linear;
-  margin: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.5);
 }
 
-.js-glitch.glitching {
-  transform: translateX(-2px) skewX(-2deg);
-  text-shadow: 2px 0 #ff3b3b, -2px 0 #00e6f6;
+.titulo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-shadow: var(--sombra-texto);
 }
 
 .menu {
@@ -69,27 +62,20 @@ body {
   transform: translateX(-50%);
 }
 
-/* O posicionamento absoluto foi removido */
 .menu ul {
   display: flex;
-  gap: 30px;
+  gap: 32px;
   list-style: none;
-  margin: 0;
-  padding: 0;
 }
 
-/* Seletores ajustados de 'button' para 'a' */
 .menu li a {
-  background: none;
-  border: none;
   color: var(--cor-texto);
   font-size: 1rem;
-  cursor: pointer;
-  font-family: var(--fonte-principal);
+  font-weight: 500;
+  text-decoration: none;
   position: relative;
-  transition: color 0.2s ease;
-  text-decoration: none; /* Remove sublinhado padrão dos links */
-  padding-bottom: 4px; /* Espaço para a linha inferior */
+  padding-bottom: 4px;
+  transition: color var(--transicao);
 }
 
 .menu li a:hover {
@@ -97,70 +83,64 @@ body {
 }
 
 .menu li a.active {
-  color: var(--cor-principal);
+  color: var(--cor-hover);
   font-weight: 700;
 }
 
 .menu li a.active::after {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
-  bottom: 0;
+  bottom: -3px;
   width: 100%;
   height: 2px;
   background-color: var(--cor-principal);
-  border-radius: 2px;
+  border-radius: var(--radius);
+  transition: width var(--transicao);
 }
 
+/* 📄 CONTEÚDO */
 main#conteudo {
   flex: 1;
+  overflow-y: scroll;
+  height: 100vh;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+main#conteudo section {
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 20px; /* Adiciona um respiro */
-}
-
-main#conteudo section {
-  display: none;
+  scroll-snap-align: start;
 }
 
 main#conteudo section.active {
   display: block;
-  animation: fadeIn 0.5s ease-in-out;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-#home {
-  color: var(--cor-texto);
-  font-family: var(--fonte-principal);
-}
-
-#home h2 {
-  font-size: 1.5rem;
+main#conteudo h2 {
+  font-size: 1.8rem;
   font-weight: 700;
-  letter-spacing: 1.5px;
-  margin-bottom: 24px;
+  letter-spacing: 1.2px;
+  margin-bottom: 20px;
   text-transform: uppercase;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  text-shadow: var(--sombra-texto);
 }
 
-#home p {
-  font-size: 1.2rem;
-  font-weight: 400;
-  letter-spacing: 0.5px;
+main#conteudo p {
+  font-size: 1.1rem;
   line-height: 1.6;
-  margin-bottom: 16px;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
-  max-width: 600px; /* Melhora a legibilidade em telas largas */
+  margin-bottom: 14px;
+  text-shadow: var(--sombra-texto);
 }
 
-/* Media Query para Responsividade */
+/* SEÇÃO HABILIDADES */
+
+/* 📱 RESPONSIVIDADE */
 @media (max-width: 768px) {
   .topo {
     flex-direction: column;
@@ -168,9 +148,14 @@ main#conteudo section.active {
     padding: 20px;
   }
 
+  .menu {
+    position: static;
+    transform: none;
+  }
+
   .menu ul {
     gap: 20px;
-    flex-wrap: wrap; /* Permite que o menu quebre a linha se não couber */
+    flex-wrap: wrap;
     justify-content: center;
   }
 }

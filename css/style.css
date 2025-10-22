@@ -1,16 +1,13 @@
-/* 🎨 VARIÁVEIS */
 :root {
   --cor-principal: #000000;
   --cor-hover: #7e7e7e;
   --cor-texto: #ffffff;
   --fonte-principal: 'Onest', sans-serif;
-
   --sombra-texto: 2px 2px 4px #80808088;
   --radius: 6px;
   --transicao: 0.3s ease;
 }
 
-/* 🔧 RESET */
 * {
   margin: 0;
   padding: 0;
@@ -19,33 +16,26 @@
 
 html {
   scroll-behavior: smooth;
-}
-
-html, body {
-  height: 100%;
+  scroll-snap-type: y mandatory;
 }
 
 body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  overflow-x: hidden;
   font-family: var(--fonte-principal);
   color: var(--cor-texto);
   background: var(--cor-principal);
-  background-size: 400% 400%;
+  min-height: 100%;
 }
 
-/* 🧭 TOPO E MENU */
+/* TOPO FIXO */
 .topo {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 20px 40px;
-  z-index: 100;
-  position: relative;
-  width: 100%;
+  position: fixed;
   top: 0;
+  width: 100%;
+  z-index: 100;
   background: rgba(0, 0, 0, 0.5);
 }
 
@@ -56,8 +46,10 @@ body {
   text-shadow: var(--sombra-texto);
 }
 
+/* MENU CENTRALIZADO */
 .menu {
-  position: absolute;
+  position: fixed;
+  top: 20px;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -99,13 +91,10 @@ body {
   transition: width var(--transicao);
 }
 
-/* 📄 CONTEÚDO */
+/* CONTEÚDO */
 main#conteudo {
   flex: 1;
-  overflow-y: scroll;
-  height: 100vh;
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
+  margin-top: 100px; /* evita sobreposição do topo */
 }
 
 main#conteudo section {
@@ -116,10 +105,6 @@ main#conteudo section {
   align-items: center;
   text-align: center;
   scroll-snap-align: start;
-}
-
-main#conteudo section.active {
-  display: block;
 }
 
 main#conteudo h2 {
@@ -138,19 +123,12 @@ main#conteudo p {
   text-shadow: var(--sombra-texto);
 }
 
-/* SEÇÃO HABILIDADES */
-
-/* 📱 RESPONSIVIDADE */
+/* RESPONSIVIDADE */
 @media (max-width: 768px) {
   .topo {
     flex-direction: column;
     gap: 20px;
     padding: 20px;
-  }
-
-  .menu {
-    position: static;
-    transform: none;
   }
 
   .menu ul {
